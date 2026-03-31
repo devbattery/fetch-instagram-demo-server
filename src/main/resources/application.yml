@@ -1,0 +1,46 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: demo-influencer-server
+  thymeleaf:
+    cache: false
+
+demo:
+  cors:
+    allowed-origins:
+      - http://localhost:5173
+      - http://127.0.0.1:5173
+  instagram-login:
+    enabled: ${DEMO_INSTAGRAM_LOGIN_ENABLED:false}
+    client-id: ${DEMO_INSTAGRAM_CLIENT_ID:}
+    client-secret: ${DEMO_INSTAGRAM_CLIENT_SECRET:}
+    redirect-uri: ${DEMO_INSTAGRAM_REDIRECT_URI:http://localhost:8086/demo/instagram-login/callback}
+    # 아래 endpoint 기본값은 Instagram Login 실험용 추정치이며, Meta 문서/대시보드 정책 변경 시 환경변수로 덮어쓸 수 있게 열어둡니다.
+    authorization-url: ${DEMO_INSTAGRAM_AUTHORIZATION_URL:https://www.instagram.com/oauth/authorize}
+    code-exchange-url: ${DEMO_INSTAGRAM_CODE_EXCHANGE_URL:https://api.instagram.com/oauth/access_token}
+    long-lived-token-url: ${DEMO_INSTAGRAM_LONG_LIVED_TOKEN_URL:https://graph.instagram.com/access_token}
+    refresh-token-url: ${DEMO_INSTAGRAM_REFRESH_TOKEN_URL:https://graph.instagram.com/refresh_access_token}
+    graph-api-base-url: ${DEMO_INSTAGRAM_GRAPH_API_BASE_URL:https://graph.instagram.com}
+    default-min-followers: ${DEMO_INSTAGRAM_MIN_FOLLOWERS:5000}
+    default-min-media-count: ${DEMO_INSTAGRAM_MIN_MEDIA_COUNT:9}
+    media-limit: ${DEMO_INSTAGRAM_MEDIA_LIMIT:12}
+    scopes:
+      - instagram_business_basic
+    profile-fields:
+      - user_id
+      - username
+      - name
+      - profile_picture_url
+      - followers_count
+      - media_count
+    media-fields:
+      - id
+      - caption
+      - media_type
+      - media_product_type
+      - media_url
+      - thumbnail_url
+      - permalink
+      - timestamp

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인스타그램 인증 데모</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #09090b;
+            --panel: rgba(24, 24, 27, 0.88);
+            --line: rgba(255, 255, 255, 0.12);
+            --text: #f4f4f5;
+            --muted: #a1a1aa;
+            --accent: #fb7185;
+            --accent-strong: #f43f5e;
+            --success: #34d399;
+            --danger: #f87171;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "SUIT Variable", "Pretendard Variable", sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(244, 63, 94, 0.24), transparent 30%),
+                radial-gradient(circle at bottom, rgba(59, 130, 246, 0.18), transparent 28%),
+                var(--bg);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .shell {
+            width: min(100%, 540px);
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            backdrop-filter: blur(20px);
+            padding: 28px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(251, 113, 133, 0.16);
+            color: #fecdd3;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        h1 {
+            margin: 18px 0 10px;
+            font-size: 28px;
+            line-height: 1.2;
+        }
+
+        p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .card {
+            margin-top: 24px;
+            padding: 18px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--line);
+        }
+
+        .label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+
+        .value {
+            margin-top: 8px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .grid {
+            display: grid;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .hint {
+            margin-top: 20px;
+            padding: 16px;
+            border-left: 3px solid var(--accent);
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+
+        .actions {
+            margin-top: 22px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .button {
+            appearance: none;
+            border: 0;
+            border-radius: 18px;
+            padding: 16px 18px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.18s ease, opacity 0.18s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+            color: white;
+        }
+
+        .button-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text);
+            border: 1px solid var(--line);
+        }
+
+        .button-danger {
+            background: rgba(248, 113, 113, 0.16);
+            color: #fecaca;
+            border: 1px solid rgba(248, 113, 113, 0.18);
+        }
+
+        .footer {
+            margin-top: 18px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        code {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+<main class="shell">
+    <span class="eyebrow">Instagram Verification Demo</span>
+    <h1>인스타 인플루언서 인증을 시뮬레이션합니다.</h1>
+    <p>
+        실제 서비스에서는 이 단계에서 인스타그램 로그인 또는 계정 연결이 끝난 뒤
+        딥링크나 유니버설 링크로 앱으로 복귀하게 됩니다.
+        이 데모는 그 마지막 복귀 단계를 빠르게 검증하기 위한 화면입니다.
+    </p>
+
+    <section class="card">
+        <div class="grid">
+            <div>
+                <div class="label">핸들</div>
+                <div class="value" th:text="${'@' + handle}">@demo_handle</div>
+            </div>
+            <div>
+                <div class="label">프로필 URL</div>
+                <div class="value" style="font-size: 15px; overflow-wrap: anywhere;" th:text="${profileUrl}">
+                    https://www.instagram.com/demo_handle/
+                </div>
+            </div>
+            <div>
+                <div class="label">복귀 URL</div>
+                <div class="value" style="font-size: 15px; overflow-wrap: anywhere;" th:text="${redirectUri}">
+                    demowebview://verification/callback
+                </div>
+            </div>
+        </div>
+
+        <div class="hint">
+            공식 API 기준으로는 "파란 체크 뱃지 여부"를 단순 외부 프로필 URL만으로 바로 판정하는 안정적인 흐름을
+            기대하기 어렵기 때문에, 이 데모는 <strong>인증 완료 후 앱으로 success code를 돌려보내는 구조</strong>만 검증합니다.
+            <br><br>
+            또한 <strong>실제 인스타 인플루언서 계정이 없어도 테스트할 수 있습니다.</strong>
+            지금 화면은 실제 계정 검증이 아니라, 인증 성공/실패 후 앱 복귀 처리가 제대로 되는지만 보는 QA 페이지입니다.
+        </div>
+    </section>
+
+    <div class="actions">
+        <button
+            id="success-button"
+            class="button button-primary"
+            type="button"
+            th:attr="data-complete-url=@{/demo/verification/instagram/complete(handle=${handle},redirectUri=${redirectUri},decision=SUCCESS)}">
+            체크된 인플루언서로 판정하고 앱으로 복귀
+        </button>
+        <button
+            id="profile-button"
+            class="button button-secondary"
+            type="button"
+            th:attr="data-profile-url=${profileUrl}">
+            인스타 프로필 열어보기
+        </button>
+        <button
+            id="failure-button"
+            class="button button-danger"
+            type="button"
+            th:attr="data-complete-url=@{/demo/verification/instagram/complete(handle=${handle},redirectUri=${redirectUri},decision=FAILURE)}">
+            인증 실패로 복귀
+        </button>
+    </div>
+
+    <p class="footer">
+        네이티브 앱에서는 위 복귀 URL을 <code>custom scheme</code> 또는 <code>universal link</code>로 바꾸면 됩니다.
+    </p>
+</main>
+<script>
+    const moveToUrl = selector => {
+        const element = document.querySelector(selector);
+        if (!element) return;
+
+        const url = element.dataset.completeUrl;
+        if (url) {
+            window.location.href = url;
+        }
+    };
+
+    document.querySelector('#success-button')?.addEventListener('click', () => moveToUrl('#success-button'));
+    document.querySelector('#failure-button')?.addEventListener('click', () => moveToUrl('#failure-button'));
+    document.querySelector('#profile-button')?.addEventListener('click', () => {
+        const url = document.querySelector('#profile-button')?.dataset.profileUrl;
+        if (url) {
+            window.open(url, '_blank');
+        }
+    });
+</script>
+</body>
+</html>

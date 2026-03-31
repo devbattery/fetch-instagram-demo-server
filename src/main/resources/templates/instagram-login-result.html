@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login Result</title>
+    <style>
+        :root {
+            font-family: "Pretendard Variable", sans-serif;
+            color: #f7f8fb;
+            background: #06070b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background:
+                    radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 28%),
+                    radial-gradient(circle at bottom, rgba(249, 115, 22, 0.18), transparent 28%),
+                    #06070b;
+        }
+
+        .result-card {
+            width: min(100%, 520px);
+            padding: 28px;
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(14, 16, 24, 0.94);
+            box-shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 30px;
+            line-height: 1.08;
+        }
+
+        p {
+            margin: 14px 0 0;
+            color: #a7b0c7;
+            line-height: 1.55;
+        }
+
+        button {
+            margin-top: 22px;
+            padding: 12px 16px;
+            border: 0;
+            border-radius: 14px;
+            color: #f7f8fb;
+            cursor: pointer;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+        }
+    </style>
+</head>
+<body>
+<section class="result-card">
+    <h1 th:text="${title}">Instagram 로그인 완료</h1>
+    <p th:text="${description}">
+        로그인 결과를 원래 페이지로 전달하고 있습니다.
+    </p>
+    <button type="button" onclick="window.close()">팝업 닫기</button>
+</section>
+
+<script th:inline="javascript">
+    const payload = /*[[${payload}]]*/ null;
+    const origin = /*[[${origin}]]*/ '';
+
+    if (payload && origin && window.opener) {
+        window.opener.postMessage(payload, origin);
+        setTimeout(() => window.close(), 900);
+    }
+</script>
+</body>
+</html>
