@@ -17,7 +17,16 @@ public enum DemoErrorCode implements ErrorCode {
     INSTAGRAM_LONG_LIVED_TOKEN_FAILED("DEMO-502-IG-LONG", "Instagram long-lived token 발급에 실패했습니다.", HttpStatus.BAD_GATEWAY),
     INSTAGRAM_TOKEN_REFRESH_FAILED("DEMO-502-IG-REFRESH", "Instagram long-lived token refresh 에 실패했습니다.", HttpStatus.BAD_GATEWAY),
     INSTAGRAM_PROFILE_FETCH_FAILED("DEMO-502-IG-PROFILE", "Instagram 계정 정보 조회에 실패했습니다.", HttpStatus.BAD_GATEWAY),
-    INSTAGRAM_MEDIA_FETCH_FAILED("DEMO-502-IG-MEDIA", "Instagram 릴스/미디어 조회에 실패했습니다.", HttpStatus.BAD_GATEWAY);
+    INSTAGRAM_MEDIA_FETCH_FAILED("DEMO-502-IG-MEDIA", "Instagram 릴스/미디어 조회에 실패했습니다.", HttpStatus.BAD_GATEWAY),
+    YOUTUBE_LOGIN_NOT_READY("DEMO-503-YT-CONFIG", "YouTube OAuth 설정이 아직 준비되지 않았습니다.", HttpStatus.SERVICE_UNAVAILABLE),
+    INVALID_YOUTUBE_OAUTH_STATE("DEMO-400-YT-STATE", "YouTube OAuth state 가 유효하지 않습니다.", HttpStatus.BAD_REQUEST),
+    YOUTUBE_FLOW_NOT_FOUND("DEMO-404-YT-FLOW", "YouTube 로그인 결과를 찾지 못했습니다.", HttpStatus.NOT_FOUND),
+    YOUTUBE_CHANNEL_NOT_FOUND("DEMO-404-YT-CHANNEL", "저장된 YouTube 채널을 찾지 못했습니다.", HttpStatus.NOT_FOUND),
+    YOUTUBE_REFRESH_TOKEN_MISSING("DEMO-400-YT-REFRESH", "YouTube refresh token 이 없어 재동기화를 진행할 수 없습니다.", HttpStatus.BAD_REQUEST),
+    YOUTUBE_CODE_EXCHANGE_FAILED("DEMO-502-YT-CODE", "Google authorization code 교환에 실패했습니다.", HttpStatus.BAD_GATEWAY),
+    YOUTUBE_TOKEN_REFRESH_FAILED("DEMO-502-YT-TOKEN", "YouTube access token refresh 에 실패했습니다.", HttpStatus.BAD_GATEWAY),
+    YOUTUBE_CHANNEL_FETCH_FAILED("DEMO-502-YT-CHANNEL", "YouTube 채널 정보 조회에 실패했습니다.", HttpStatus.BAD_GATEWAY),
+    YOUTUBE_VIDEO_FETCH_FAILED("DEMO-502-YT-VIDEO", "YouTube 영상 목록 조회에 실패했습니다.", HttpStatus.BAD_GATEWAY);
 
     private final String code;
     private final String message;

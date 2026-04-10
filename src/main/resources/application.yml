@@ -12,6 +12,8 @@ demo:
     allowed-origins:
       - http://localhost:5173
       - http://127.0.0.1:5173
+      - http://localhost:4173
+      - http://127.0.0.1:4173
   instagram-login:
     enabled: ${DEMO_INSTAGRAM_LOGIN_ENABLED:false}
     client-id: ${DEMO_INSTAGRAM_CLIENT_ID:}
@@ -44,3 +46,17 @@ demo:
       - thumbnail_url
       - permalink
       - timestamp
+  youtube-login:
+    enabled: ${DEMO_YOUTUBE_LOGIN_ENABLED:true}
+    client-id: ${DEMO_YOUTUBE_CLIENT_ID:}
+    client-secret: ${DEMO_YOUTUBE_CLIENT_SECRET:}
+    redirect-uri: ${DEMO_YOUTUBE_REDIRECT_URI:http://localhost:8086/demo/youtube-login/callback}
+    authorization-url: ${DEMO_YOUTUBE_AUTHORIZATION_URL:https://accounts.google.com/o/oauth2/v2/auth}
+    token-url: ${DEMO_YOUTUBE_TOKEN_URL:https://oauth2.googleapis.com/token}
+    api-base-url: ${DEMO_YOUTUBE_API_BASE_URL:https://www.googleapis.com/youtube/v3}
+    default-min-subscribers: ${DEMO_YOUTUBE_MIN_SUBSCRIBERS:1000}
+    default-min-video-count: ${DEMO_YOUTUBE_MIN_VIDEO_COUNT:9}
+    video-limit: ${DEMO_YOUTUBE_VIDEO_LIMIT:50}
+    shorts-max-duration-seconds: ${DEMO_YOUTUBE_SHORTS_MAX_DURATION_SECONDS:180}
+    scopes:
+      - https://www.googleapis.com/auth/youtube.readonly

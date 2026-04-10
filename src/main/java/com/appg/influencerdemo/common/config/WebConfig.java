@@ -1,6 +1,7 @@
 package com.appg.influencerdemo.common.config;
 
 import com.appg.influencerdemo.instagramlogin.config.InstagramLoginProperties;
+import com.appg.influencerdemo.youtubelogin.config.YouTubeLoginProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -9,7 +10,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableConfigurationProperties({
         DemoCorsProperties.class,
-        InstagramLoginProperties.class
+        InstagramLoginProperties.class,
+        YouTubeLoginProperties.class
 })
 public class WebConfig implements WebMvcConfigurer {
 
